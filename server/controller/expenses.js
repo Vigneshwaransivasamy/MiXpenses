@@ -4,12 +4,31 @@ const Category = require('../models').Category;
 const mongoose = require('mongoose');
 const moment = require('moment');
 
-var dateObj = new Date();
-var month = dateObj.getUTCMonth() + 1; //months from 1-12
-var day = dateObj.getUTCDate();
-var year = dateObj.getUTCFullYear();
+// var dateObj = new Date();
+// var month = dateObj.getUTCMonth() + 1; //months from 1-12
+// var day = dateObj.getUTCDate();
+// var year = dateObj.getUTCFullYear();
 
-var currentDateObj = {year: year, month: month, day: day};
+// var currentDateObj = {year: year, month: month, day: day};
+
+function groupExpenses(listOfExpenses, groupBy){
+    var currentDay = moment.utc().startOf('day');
+    var addOffset = function(offset){
+
+    }
+    var addRoom = function(){
+        group.push([])
+    }
+    var group = [];
+    listOfExpenses.map(function(expenses){
+        if(currentDay > expenses.createdAt){
+            if(!group.length > 0) addRoom();
+            group[group.length-1].push(expenses);
+        } else {
+
+        }
+    })
+}
 
 function createCategory(data, req, res){
     console.log(data);
@@ -27,25 +46,19 @@ function createCategory(data, req, res){
     }); 
 }
 
-function checkValidCategory(data, done){
+function checkValidCategory(data, req, res){
     Category.findOne({type: data.category}, function(err, success){
         if(err) {
             res.json(err)
         } else {
-            
+            createCategory(data, req, res);
         }
     })
 }
 
 exports.addExpenses = function(req, res){
     var data = req.body;
-    checkValidCategory(data, function(){
-        if(err) {
-            res.json(err);
-        } else {
-            createCategory(data, req, res);
-        }
-    });
+    checkValidCategory(data, req, res);
 };
 
 exports.listExpenses = function(req, res){
@@ -53,19 +66,11 @@ exports.listExpenses = function(req, res){
     var query = {};
     var groupBy = req.query.groupBy;
     var query = {}
-    if(groupBy){
-        query = {
-            createdAt: {
-                $gte: new Date(yearStart, monthStart, dateStart), 
-                $lt: new Date(yearEnd, monthEnd, dateEnd)
-            }
-        }
-    }
-    Expenses.find(query, function(err, success){
+    Expenses.find(query,null, {sort: {date: -1}}, function(err, success){
         if(err) {
             res.json(err);
         } else {
-            res.json(success);
+            res.json(groupExpenses(success, groupBy));
         }
     });
 }
