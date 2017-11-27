@@ -8,7 +8,8 @@ var ExpensesSchema = module.exports = new Schema({
         required: true
     },
     category: {
-        type: String, 
+        type: mongoose.Schema.ObjectId,
+        ref: 'Category', 
         required: true
     },
     amount: {
@@ -18,7 +19,8 @@ var ExpensesSchema = module.exports = new Schema({
     },
     note: {
         type: String,
-        required: true
+        default: ""
     },
-    createdAt: { type: Date, default: Date.now }
+    createdAt: { type: Date, default: Date.now },
+    updatedAt: { type: Date }
 });

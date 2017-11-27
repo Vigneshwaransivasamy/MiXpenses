@@ -10,5 +10,11 @@ const UserSchema = module.exports = new Schema({
         type: String,
         required: true
     },
-    expenses: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Expenses', default: []}]
+    createAt: {
+        type: Date,
+        default: Date.now
+    },
+    updatedAt: {
+        type: Date
+    }
 });
