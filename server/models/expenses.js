@@ -7,7 +7,10 @@ var ExpensesSchema = module.exports = new Schema({
         type: String,
         required: true
     },
-    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+    category: {
+        type: String, 
+        required: true
+    },
     amount: {
         type: Number,
         min: 1,
@@ -17,7 +20,5 @@ var ExpensesSchema = module.exports = new Schema({
         type: String,
         required: true
     },
-    createAt: { type: Date, default: Date.now }
-})
-
-// module.exports = mongoose.model('User', ExpensesSchema);
+    createdAt: { type: Date, default: Date.now }
+});

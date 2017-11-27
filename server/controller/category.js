@@ -12,3 +12,14 @@ exports.addCategory = function(req, res){
         }
     }); 
 };
+
+exports.listCategory = function(req, res){
+    var data = req.body;
+    Category.find({}, function(err, success){
+        if(err) {
+            res.json(err)
+        } else {
+            res.json(success)
+        }
+    })
+};
