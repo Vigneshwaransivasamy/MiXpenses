@@ -1,10 +1,15 @@
 const mongoose = require('mongoose');
 const User = require('./user');
-const Expenses = require('./expenses');
-const Category = require('./category');
+const Transaction = require('./transaction');
+const Categories = require('./categories');
+const bcrypt = require('bcrypt');
+
+User.methods.checkPassword = function(password){
+  return bcrypt.compareSync(password, this.passwordHash);
+}
 
 exports.User = mongoose.model('User', User);
 
-exports.Expenses = mongoose.model('Expenses', Expenses);
+exports.Transaction = mongoose.model('Transaction', Transaction);
 
-exports.Category = mongoose.model('Category', Category);
+exports.Categories = mongoose.model('Categories', Categories);

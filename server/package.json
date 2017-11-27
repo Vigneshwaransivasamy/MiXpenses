@@ -9,9 +9,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "bcrypt": "^1.0.3",
     "body-parser": "^1.18.2",
     "express": "^4.16.2",
     "express-validator": "^4.3.0",
+    "jsonwebtoken": "^8.1.0",
     "moment": "^2.19.2",
     "mongoose": "^4.13.5"
   }
