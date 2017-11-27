@@ -1,13 +1,9 @@
 var express = require('express');
 
-var expensesModal = require('../models/Expenses');
-
-var expensesController = require('../controller/Expenses');
+var expensesController = require('../controller/expenses');
 
 var router = express.Router();
 
-router.get('/', function(){
-    console.log('Yet to implement');
-})
+router.post('/add', expensesController.addExpenses)
 
 module.exports = router;

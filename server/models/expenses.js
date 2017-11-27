@@ -1,19 +1,23 @@
 var mongoose = require('mongoose');
 
-var Expenses = new mongoose.Schema({
+var Schema = mongoose.Schema;
+
+var ExpensesSchema = module.exports = new Schema({
     title: {
         type: String,
-        category: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Category' }],
-        amount: {
-            type: Number,
-            min: 1,
-            required: true
-        },
-        note: {
-            type: String,
-            required: true
-        }
-    }
+        required: true
+    },
+    category: { type: mongoose.Schema.Types.ObjectId, ref: 'Category' },
+    amount: {
+        type: Number,
+        min: 1,
+        required: true
+    },
+    note: {
+        type: String,
+        required: true
+    },
+    createAt: { type: Date, default: Date.now }
 })
 
-module.exports = Expenses;
+// module.exports = mongoose.model('User', ExpensesSchema);

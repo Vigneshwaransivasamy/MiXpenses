@@ -10,16 +10,20 @@ var user = require('./routes/user');
 
 var expenses = require('./routes/expenses');
 
-app.use(bodyParser.json());
+var category = require('./routes/category');
 
 app.use(bodyParser.urlencoded({ extended: false }));
+
+app.use(bodyParser.json());
 
 app.get('/', function(req, res){
     res.send('Server is up and running');
 });
 
-app.get('/user', user);
+app.use('/user', user);
 
-app.get('/expenses', expenses);
+app.use('/expenses', expenses);
+
+app.use('/category', category);
 
 app.listen(3000);

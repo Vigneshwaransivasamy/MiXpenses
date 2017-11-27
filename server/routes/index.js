@@ -1,13 +1,9 @@
-var express = require('express');
+// var express = require('express');
 
-var userModal = require('../models/User');
+// var expensesController = require('../controller/Expenses');
 
-var userController = require('../controller/User');
+// var router = express.Router();
 
-var router = express.Router();
+// router.post('/add', expensesController.addExpenses)
 
-router.get('/index', function(req, res){
-    res.send('Yet to implement');
-})
-
-module.exports = router;
+// module.exports = router;
