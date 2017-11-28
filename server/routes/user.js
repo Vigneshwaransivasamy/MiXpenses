@@ -5,7 +5,7 @@ var router = express.Router();
 
 router.post('/register', userController.register);
 
-router.post('/deleteAccount', userController.unRegister);
+router.post('/deleteAccount', userController.deleteAccount);
 
 router.post('/login', userController.login);
 

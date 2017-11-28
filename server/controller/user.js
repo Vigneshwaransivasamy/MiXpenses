@@ -16,8 +16,7 @@ exports.register = function(req, res){
     }); 
 }
 
-// For Testing
-exports.unRegister = function(req, res){
+exports.deleteAccount = function(req, res){
     var data = req.body;
     User.remove({email: data.email},function(err, success){
         if(err) {

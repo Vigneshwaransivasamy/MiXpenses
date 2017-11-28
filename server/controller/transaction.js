@@ -17,6 +17,8 @@ const moment = require('moment');
 
 exports.addTransaction = function(req, res){
     var data = req.body;
+    var userId = req.params.userId || req.body.userId;
+    let _data = Object.assign({}, data, {userId: userId});
     Transaction.create(data,function(err, success){
         if(err) {
             res.json(err);
@@ -26,38 +28,91 @@ exports.addTransaction = function(req, res){
     }); 
 };
 
-exports.getTransactionsByGroup = function(req, res){
+exports.getTransactionsOfUser = function(req, res){
     var data = req.body;
-    var id = data.id
-    Transaction.aggregate([
-        {
-            $match: {
-            userId: new mongoose.Types.ObjectId(id),
-            transferedAt: {
-                '$gte':  moment().dayOfYear(1).toDate(),
-                '$lt': moment().dayOfYear(366).toDate()
-            }
-            }
-        },
-        {
-            $group: {
-                _id: {
-                    month: {
-                        $month: "$transferedAt"
+    var params = req.body.params
+    var id = data.id;
+    if(params && params.groupBy){
+        Transaction.aggregate([
+            {
+                $match: {
+                userId: new mongoose.Types.ObjectId(id),
+                transferedAt: {
+                    '$gte':  moment().dayOfYear(1).toDate(),
+                    '$lt': moment().dayOfYear(366).toDate()
+                }
+                }
+            },
+            {
+                $group: {
+                    _id: {
+                        month: {
+                            $month: "$transferedAt"
+                        },
+                        year: {
+                            $year: "$transferedAt"
+                        },
+                        day: {
+                            $dayOfMonth: "$transferedAt"
+                        }
                     },
-                    year: {
-                        $year: "$transferedAt"
-                    },
-                    day: {
-                        $dayOfMonth: "$transferedAt"
+                    totalAmount: {
+                        $sum: "$amount"
                     }
-                },
-                totalAmount: {
-                    $sum: "$amount"
                 }
             }
-        }
-    ], function(err, records){
+        ], function(err, records){
+            if(err) throw new Error(err);
+            res.json({
+              success: true,
+              data: records
+            });
+        }); 
+    } else {
+        Transaction.find({}, function(err, records){
+            if(err) throw new Error(err);
+            res.json({
+              success: true,
+              data: records
+            });
+        });
+    }
+}
+
+exports.getTransactionOfUserById = function(req, res){
+    var data = req.body;
+    var id = req.params.id;
+    var userId = req.params.userId || req.body.userId;
+    let _data = Object.assign({}, data, {userId: userId});
+    Transaction.findOne({userId: userId, _id: id}, function(err, records){
+        if(err) throw new Error(err);
+        res.json({
+          success: true,
+          data: records
+        });
+    });
+}
+
+exports.removeTransactionOfUserById = function(req, res){
+    var data = req.body;
+    var id = req.params.id;
+    var userId = req.params.userId || req.body.userId;
+    let _data = Object.assign({}, data, {userId: userId});
+    Transaction.remove({userId: userId, _id: id}, function(err, records){
+        if(err) throw new Error(err);
+        res.json({
+          success: true,
+          data: records
+        });
+    });
+}
+
+exports.updateTransactionById = function(req, res){
+    var data = req.body;
+    var id = req.params.id;
+    var userId = req.params.userId || req.body.userId;
+    let _data = Object.assign({}, data, {userId: userId});
+    Transaction.findOneAndUpdate({userId: userId, _id: id}, updatedContent, {new: true}, function(err, records){
         if(err) throw new Error(err);
         res.json({
           success: true,

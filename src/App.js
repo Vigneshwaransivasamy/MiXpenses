@@ -7,7 +7,7 @@ import Main from './route';
 class App extends Component {
   render() {
     return (
-      <div className="App">
+      <div className="app flex">
         {/* Hello World! */}
         <Main />
       </div>

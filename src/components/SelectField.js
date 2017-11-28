@@ -1,4 +1,4 @@
-import React,{Component} from 'react';
+import React from 'react';
 
 const SelectField = (props) =>{
   return (
@@ -6,7 +6,7 @@ const SelectField = (props) =>{
       <select {...props} className="text-input transition-color">
         {
           props.options.map(
-          (value, i) => <option key={i}>{value}</option>)
+          (value, i) => <option key={i} selected={(i===0)?true: false} disabled={(i===0)?true: false}>{value}</option>)
         }
       </select>
     </div>

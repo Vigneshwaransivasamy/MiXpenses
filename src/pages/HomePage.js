@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import InputField from '../components/InputField';
-import ButtonField from '../components/ButtonField';
-import TextField from '../components/TextField';
-import SelectField from '../components/SelectField';
-import CategoryList from '../components/CategoryList';
+import AddCategory from '../components/AddCategory';
+import AddExpenses from '../components/AddExpenses.js'
 
 class HomePage extends Component {
   constructor(props){
@@ -13,7 +10,8 @@ class HomePage extends Component {
     this.handleRemove = this.handleRemove.bind(this);
     this.state = {
       categories: [],
-      transactions: []
+      transactions: [],
+      page: 'add-expenses'
     }
   }
 
@@ -59,30 +57,9 @@ class HomePage extends Component {
   render() {
     return (
       <div className="HomePage">
-        <div style={{position: 'fixed', top: '0', left: '0'}}>
-          <section className="add-expenses">
-            <form onSubmit={this.addTransaction}>
-              <h1 style={{fontSize : '14px', marginBottom: '30px'}}>Add Transaction</h1>              
-              <InputField placeholder="Title"/>
-                <SelectField style={{display: 'inline-block'}} options={['food', 'fuel']} />
-              <InputField placeholder="Amount"/>
-              <TextField placeholder="Note"/>
-              <input title="Add Expenses" type="submit" style={{float: 'right'}} className="submit-button transition-background" value="Submit" />        
-            </form>
-          </section>
-          <section className="add-category">
-            <form onSubmit={this.addCategory}>
-              <h1 style={{fontSize : '14px', marginBottom: '30px'}}>Category List</h1>              
-              {/* <SelectField style={{display: 'inline-block'}} options={['food', 'fuel']} /> */}
-              {/* <CategoryList 
-                items={this.state.categories}
-                updateFieldValue={this.handleUpdate}
-                handleDeleteList={this.handleRemove} 
-                handleChange={this.handleChange}/> */}
-              <InputField placeholder="Add Category"/>
-              <input title="Add Expenses" type="submit" style={{float: 'right'}} className="submit-button transition-background" value="Submit" />        
-            </form>
-          </section>
+        <div>
+          { this.state.page === 'add-expenses' ? <AddExpenses/> :
+            this.state.page === 'add-category' ? <AddCategory/> : <AddExpenses/>}
         </div>
           
       </div>

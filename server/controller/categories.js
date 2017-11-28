@@ -2,7 +2,10 @@ const Categories = require('../models').Categories;
 
 exports.addCategory = function(req, res){
     var data = req.body;
-    Categories.create(data,function(err, success){
+    var id = req.params.id;
+    var userId = req.params.userId || req.body.userId;
+    let _data = Object.assign({}, data, {userId: userId});
+    Categories.create(_data,function(err, success){
         if(err) {
             res.json(err);
         } else {
@@ -11,10 +14,22 @@ exports.addCategory = function(req, res){
     }); 
 };
 
-exports.getCategories = function(req, res){
+exports.getCategoriesOfUser = function(req, res){
+    var userId = req.params.userId || req.body.userId;
+    Categories.find({userId: userId}, function(err, success){
+        if(err) {
+            res.json(err)
+        } else {
+            res.json(success)
+        }
+    })
+};
+
+exports.getCategoryOfUserById = function(req, res){
     var data = req.body;
-    console.log(req.user);
-    Categories.find({}, function(err, success){
+    var id = req.params.id;
+    var userId = req.params.userId || req.body.userId;
+    Categories.findOne({_id: id, userId, userId}, function(err, success){
         if(err) {
             res.json(err)
         } else {
@@ -23,9 +38,11 @@ exports.getCategories = function(req, res){
     })
 };
 
-exports.getCategoryById = function(req, res){
+exports.removeCategoryOfUserById = function(req, res){
+    var data = req.body;
     var id = req.params.id;
-    Categories.findOne({_id: id}, function(err, success){
+    var userId = req.params.userId || req.body.userId;
+    Categories.remove({_id: id, userId, userId}, function(err, success){
         if(err) {
             res.json(err)
         } else {
@@ -34,21 +51,12 @@ exports.getCategoryById = function(req, res){
     })
 };
 
-exports.removeCategoryById = function(req, res){
+exports.updateCategoryOfUserById = function(req, res){
+    var data = req.body;
     var id = req.params.id;
-    Categories.remove({_id: id}, function(err, success){
-        if(err) {
-            res.json(err)
-        } else {
-            res.json(success)
-        }
-    })
-};
-
-exports.updateCategoryById = function(req, res){
-    var id = req.params.id;
-    var updateContent = req.body
-    Categories.findOneAndUpdate({_id: id}, updateContent, {new: true}, function(err, success){
+    var userId = req.params.userId || req.body.userId;
+    let _data = Object.assign({}, data, {userId: userId});
+    Categories.findOneAndUpdate({_id: id, userId, userId}, _data, {new: true}, function(err, success){
         if(err) {
             res.json(err)
         } else {
