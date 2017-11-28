@@ -4,38 +4,64 @@ const Categories = require('../models').Categories;
 const mongoose = require('mongoose');
 const moment = require('moment');
 
+/**
+ * {
+    "title": "test data",
+    "category": "5a1cd59da66d367863b2d099",
+    "userId": "",
+    "amount": 40,
+    "note": "test",
+    "userId": "5a1c43dce4dd8e3b351d1d1c"
+}
+ */
 
-function createCategory(data, req, res){
-    console.log(data);
-    Transaction.create({
-        title:data.title, 
-        amount: data.amount,
-        category: data.category,
-        note: data.note
-    },function(err, success){
+exports.addTransaction = function(req, res){
+    var data = req.body;
+    Transaction.create(data,function(err, success){
         if(err) {
             res.json(err);
         } else {
             res.json({data: data, success: true});        
         }
     }); 
-}
-
-exports.addExpenses = function(req, res){
-    var data = req.body;
-    checkValidCategory(data, req, res);
 };
 
-exports.listExpenses = function(req, res){
+exports.getTransactionsByGroup = function(req, res){
     var data = req.body;
-    var query = {};
-    var groupBy = req.query.groupBy;
-    var query = {}
-    Expenses.find(query,null, {sort: {date: -1}}, function(err, success){
-        if(err) {
-            res.json(err);
-        } else {
-            res.json(groupExpenses(success, groupBy));
+    var id = data.id
+    Transaction.aggregate([
+        {
+            $match: {
+            userId: new mongoose.Types.ObjectId(id),
+            transferedAt: {
+                '$gte':  moment().dayOfYear(1).toDate(),
+                '$lt': moment().dayOfYear(366).toDate()
+            }
+            }
+        },
+        {
+            $group: {
+                _id: {
+                    month: {
+                        $month: "$transferedAt"
+                    },
+                    year: {
+                        $year: "$transferedAt"
+                    },
+                    day: {
+                        $dayOfMonth: "$transferedAt"
+                    }
+                },
+                totalAmount: {
+                    $sum: "$amount"
+                }
+            }
         }
+    ], function(err, records){
+        if(err) throw new Error(err);
+        res.json({
+          success: true,
+          data: records
+        });
     });
 }

@@ -1,10 +1,11 @@
 import React from 'react';
-import './TextItem.css'
 
-const InputField = (props) =>{
+const TextField = (props) =>{
   return (
-    <div className="input-field">
-      <input {...props} className="text-input transition-color"></input>
+    <div className="text-field">
+      <textarea {...props} className="text-input transition-color"></textarea>
     </div>
   )
 }
+
+export default TextField;

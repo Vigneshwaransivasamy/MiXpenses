@@ -24,8 +24,8 @@ exports.getCategories = function(req, res){
 };
 
 exports.getCategoryById = function(req, res){
-    var data = req.body;
-    Categories.find({}, function(err, success){
+    var id = req.params.id;
+    Categories.findOne({_id: id}, function(err, success){
         if(err) {
             res.json(err)
         } else {
@@ -35,8 +35,8 @@ exports.getCategoryById = function(req, res){
 };
 
 exports.removeCategoryById = function(req, res){
-    var data = req.body;
-    Categories.find({}, function(err, success){
+    var id = req.params.id;
+    Categories.remove({_id: id}, function(err, success){
         if(err) {
             res.json(err)
         } else {
@@ -46,8 +46,9 @@ exports.removeCategoryById = function(req, res){
 };
 
 exports.updateCategoryById = function(req, res){
-    var data = req.body;
-    Categories.find({}, function(err, success){
+    var id = req.params.id;
+    var updateContent = req.body
+    Categories.findOneAndUpdate({_id: id}, updateContent, {new: true}, function(err, success){
         if(err) {
             res.json(err)
         } else {

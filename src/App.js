@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 // import logo from './logo.svg';
 // import Provider from 'react-redux';
+import './index.css';
 import Main from './route';
 
 class App extends Component {

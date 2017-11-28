@@ -4,8 +4,8 @@ var transactionController = require('../controller/transaction');
 
 var router = express.Router();
 
-router.post('/add', transactionController.addExpenses);
+router.post('/', transactionController.addTransaction);
 
-router.get('/list', transactionController.listExpenses);
+router.get('/', transactionController.getTransactionsByGroup);
 
 module.exports = router;
