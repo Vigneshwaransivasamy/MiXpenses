@@ -13,6 +13,7 @@ body{
   font-family: "BrandonGrotesque-Regular";
   margin: 0px;
   padding: 0px;
+  background: #f7f7f7
 }
 
 .text-input{
@@ -27,7 +28,6 @@ body{
 .input-field, .button-field{
   position: relative;
   vertical-align: top;
-  /* display: inline-block; */
 }
 
 .text-input{
@@ -151,7 +151,7 @@ select{
   margin: auto;
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.3);
   border-radius: 4px;
-  background-color: #f7f7f7;
+  background-color: #dde6d2;
   margin: 10px;
   position: relative;
 }

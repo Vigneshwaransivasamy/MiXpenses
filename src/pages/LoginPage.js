@@ -27,7 +27,7 @@ class LoginPage extends Component {
   render() {
     return (
       <div>
-        <h1 style={{fontSize : '35px', marginBottom: '30px', textAlign: 'center'}}>MiXpenses</h1>
+        <h1 style={{fontSize : '35px', marginBottom: '30px', textAlign: 'center'}}>Xpenses</h1>
         <section className="add-category" style={{top: "calc(50% - 145px)"}}>
           <form onSubmit={this.handleLogin}>
             <h1 style={{fontSize : '20px', marginBottom: '30px'}}>Login</h1>              

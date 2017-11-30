@@ -1,8 +1,8 @@
 'use strict';
-const Transaction = require('../models').Transaction;
-const Categories = require('../models').Categories;
-const mongoose = require('mongoose');
-const moment = require('moment');
+const Transaction = require('../models').Transaction
+const Categories = require('../models').Categories
+const mongoose = require('mongoose')
+const moment = require('moment')
 
 /**
  * {
@@ -26,7 +26,7 @@ exports.addTransaction = function(req, res){
             res.json({data: data, success: true});        
         }
     }); 
-};
+}
 
 exports.getTransactionsOfUser = function(req, res){
     var data = req.body;
