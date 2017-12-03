@@ -36,11 +36,11 @@ exports.getTransactionsOfUser = function(req, res){
         Transaction.aggregate([
             {
                 $match: {
-                userId: new mongoose.Types.ObjectId(id),
-                transferedAt: {
-                    '$gte':  moment().dayOfYear(1).toDate(),
-                    '$lt': moment().dayOfYear(366).toDate()
-                }
+                    userId: new mongoose.Types.ObjectId(id),
+                    transferedAt: {
+                        '$gte':  moment().dayOfYear(1).toDate(),
+                        '$lt': moment().dayOfYear(366).toDate()
+                    }
                 }
             },
             {

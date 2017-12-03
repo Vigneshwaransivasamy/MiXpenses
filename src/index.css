@@ -22,12 +22,15 @@ body{
   padding: 8px 10px;
   outline: none;
   width: 100%;
-  margin-bottom: 20px;
 }
 
+.error-field{
+  color: red;
+}
 .input-field, .button-field{
   position: relative;
   vertical-align: top;
+  margin-bottom: 20px;
 }
 
 .text-input{
@@ -75,7 +78,7 @@ body{
 }
 
 .text-input:focus{
-  border-color: rgba(77, 129, 241, 0.8);
+  border-color: rgba(102, 77, 241, 0.8);
 }
 
 .transition-color{
@@ -113,7 +116,7 @@ body{
 
 .submit-button{
   border: 0px;
-  background-color: rgba(77, 129, 241, 0.8);
+  background-color: rgba(102, 77, 241, 0.8);
   color: #fff;
   border-radius: 4px;
   padding: 12px 14px;
@@ -124,7 +127,7 @@ body{
 }
 
 .submit-button:hover{
-  background-color: rgba(77, 129, 241, 1);
+  background-color: rgba(102, 77, 241, 1);
 }
 
 form ::-webkit-input-placeholder,option {

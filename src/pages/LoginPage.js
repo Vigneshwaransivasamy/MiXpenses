@@ -18,7 +18,7 @@ class LoginPage extends Component {
     console.log(e);
     axios.post('http://localhost:8080/user/login',form)
       .then(function(res){
-        console.log(res);
+        history.push('/')
       })
       .catch(function(err){
         console.log(err);
@@ -33,7 +33,7 @@ class LoginPage extends Component {
             <h1 style={{fontSize : '20px', marginBottom: '30px'}}>Login</h1>              
             <InputField type="email" title="Email" placeholder="Email"/>
             <InputField type="password" title="Password" placeholder="Password"/>
-            <input title="Login" type="submit" style={{width: '100%'}} className="submit-button transition-background" value="Submit" />        
+            <InputField title="Login" type="submit" style={{width: '100%'}} className="submit-button transition-background" value="Submit" />        
           </form>
         </section>
       </div>
